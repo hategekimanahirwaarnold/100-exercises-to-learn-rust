@@ -1,5 +1,37 @@
 // TODO: Define a new trait, `Power`, that has a method `power` that raises `self`
 //  to the power of `n`.
+use std::ops::Deref;
+
+trait Power<exponent = Self> {
+    type Output;
+    
+    fn power (&self, n: exponent) -> Self::Output;
+}
+
+impl Power <u32> for u32 {
+    type Output = u32;
+    fn power (&self, n: u32 ) -> Self::Output
+    {
+        self.pow(n)
+    }
+}
+
+impl Power <u16> for u32 {
+    type Output = u32;
+    fn power (&self, n: u16 ) -> Self::Output
+    {
+        self.pow(n as u32)
+    }
+}
+
+impl Power <&u32> for u32 {
+    type Output = u32;
+    fn power (&self, n: &u32 ) -> Self::Output
+    {
+        self.pow(*n)
+    }
+}
+
 //  The trait definition and its implementations should be enough to get
 //  the tests to compile and pass.
 //
