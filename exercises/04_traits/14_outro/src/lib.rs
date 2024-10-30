@@ -16,6 +16,7 @@ impl PartialEq<u16> for SaturatingU16 {
         self.value != *other
     }
 }
+
 //   It should provide conversions from `u16`, `u8`, `&u16` and `&u8`.
 impl From<u16> for SaturatingU16 {
 

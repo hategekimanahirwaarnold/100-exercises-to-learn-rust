@@ -2,11 +2,41 @@
 //  The parsing should be case-insensitive.
 
 #[derive(Debug, PartialEq, Clone)]
-enum Status {
+pub enum Status {
     ToDo,
     InProgress,
     Done,
 }
+impl TryFrom<String> for Status {
+    type Error = String;
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+       if value.to_lowercase() == "ToDO".to_lowercase() {
+        return Ok(Status::ToDo)
+       } 
+       if value.to_lowercase() == "InProgress".to_lowercase() {
+        return Ok(Status::InProgress)
+       } 
+       if value.to_lowercase() == "Done".to_lowercase() {
+        return Ok(Status::Done)
+       }
+       return Err("Value must be ToDo, InProgress or Done".into())
+    }
+}
+
+impl TryFrom<&str> for Status {
+    type Error = String;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+       if value.to_lowercase() == "ToDo".to_lowercase() {
+        return Ok(Status::ToDo)
+       } else if value.to_lowercase() == "InProgress".to_lowercase() {
+        return Ok(Status::InProgress)
+       } else if value.to_lowercase() == "Done".to_lowercase() {
+        return Ok(Status::Done)
+       }
+       return Err("Value must be ToDo, InProgress or Done".into())
+    }
+}
+
 
 #[cfg(test)]
 mod tests {
