@@ -1,9 +1,16 @@
 // TODO: Flesh out the `WeekTemperatures` struct and its method implementations to pass the tests.
-
+#[derive(PartialEq, Debug)]
 pub struct WeekTemperatures {
-    // TODO
+    monday: Option<i32>,
+    tuesday: Option<i32>,
+    wednesday: Option<i32>,
+    thursday: Option<i32>,
+    friday: Option<i32>,
+    saturday: Option<i32>,
+    sunday: Option<i32>,
 }
 
+#[derive(PartialEq)]
 pub enum Weekday {
     Monday,
     Tuesday,
@@ -16,15 +23,50 @@ pub enum Weekday {
 
 impl WeekTemperatures {
     pub fn new() -> Self {
-        todo!()
+        WeekTemperatures {
+            monday: None,
+            tuesday: None,
+            wednesday: None,
+            thursday: None,
+            friday: None,
+            saturday: None, 
+            sunday: None
+        }
     }
 
     pub fn get_temperature(&self, day: Weekday) -> Option<i32> {
-        todo!()
+        if day == Weekday::Monday {
+            return self.monday
+        } else if day == Weekday::Tuesday {
+            return self.tuesday
+        } else if day == Weekday::Wednesday {
+            return self.wednesday
+        } else if day == Weekday::Thursday {
+            return self.thursday
+        } else if day == Weekday::Friday {
+            return self.friday
+        } else if day == Weekday::Saturday {
+            return self.saturday
+        }
+        return self.sunday
     }
 
     pub fn set_temperature(&mut self, day: Weekday, temperature: i32) {
-        todo!()
+        if day == Weekday::Monday {
+            self.monday = Some(temperature)
+        } else if day == Weekday::Tuesday {
+            self.tuesday = Some(temperature)
+        } else if day == Weekday::Wednesday {
+            self.wednesday = Some(temperature)
+        } else if day == Weekday::Thursday {
+            self.thursday = Some(temperature)
+        } else if day == Weekday::Friday {
+            self.friday = Some(temperature)
+        } else if day == Weekday::Saturday {
+            self.saturday = Some(temperature)
+        } else {
+            self.sunday = Some(temperature)
+        }
     }
 }
 

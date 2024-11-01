@@ -6,6 +6,7 @@
 // You also need to add a `get` method that takes as input a `TicketId`
 // and returns an `Option<&Ticket>`.
 
+
 use ticket_fields::{TicketDescription, TicketTitle};
 
 #[derive(Clone)]
@@ -23,7 +24,16 @@ pub struct Ticket {
     pub description: TicketDescription,
     pub status: Status,
 }
-
+impl Ticket {
+    fn new(draft: TicketDraft, id: TicketId) -> Self {
+        Self {
+            id,
+            title: draft.title,
+            description: draft.description,
+            status: Status::ToDo
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq)]
 pub struct TicketDraft {
     pub title: TicketTitle,
@@ -44,8 +54,14 @@ impl TicketStore {
         }
     }
 
-    pub fn add_ticket(&mut self, ticket: Ticket) {
+    pub fn add_ticket(&mut self, draft: TicketDraft) -> TicketId {
+        let id = TicketId(self.tickets.len() as u64);
+        let ticket = Ticket::new(draft, id);
         self.tickets.push(ticket);
+        return id;
+    }
+    fn get(&self, id: TicketId) -> Option<&Ticket> {
+        self.tickets.iter().find(|t| t.id == id)
     }
 }
 

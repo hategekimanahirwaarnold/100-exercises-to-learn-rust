@@ -1,6 +1,6 @@
 use ticket_fields::{TicketDescription, TicketTitle};
-
 // TODO: Provide an `iter` method that returns an iterator over `&Ticket` items.
+
 #[derive(Clone)]
 pub struct TicketStore {
     tickets: Vec<Ticket>,
@@ -20,11 +20,23 @@ pub enum Status {
     Done,
 }
 
+impl IntoIterator for TicketStore {
+    type Item = Ticket;
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.into_iter()
+    }
+}
+
 impl TicketStore {
     pub fn new() -> Self {
         Self {
             tickets: Vec::new(),
         }
+    }
+
+    pub fn iter(&self) -> std::slice::Iter<Ticket> {
+       self.tickets.iter() 
     }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {

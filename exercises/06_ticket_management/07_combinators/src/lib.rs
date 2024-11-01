@@ -27,6 +27,11 @@ impl TicketStore {
             tickets: Vec::new(),
         }
     }
+    pub fn to_dos(&self) -> Vec<&Ticket> {
+        self.tickets.iter()
+        .filter(|t| t.status == Status::ToDo)
+        .collect()
+    }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
